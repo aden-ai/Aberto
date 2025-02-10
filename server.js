@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { neon } = require("@neondatabase/serverless");
 
-const sql = neon(process.env.DATABASE_URL || "postgresql://neondb_owner:npg_PH7bKVozxXy3@ep-lingering-tree-a8geqhq6-pooler.eastus2.azure.neon.tech/neondb?sslmode=require");
+const sql = neon(process.env.DATABASE_URL);
 
 console.log("DATABASE_URL:", process.env.DATABASE_URL);
 

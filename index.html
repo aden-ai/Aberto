@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database Table</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Database Table</h1>
+  <table id="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>victimName</th>
+        <th>victimAge</th>
+        <th>victimContact</th>
+        <th>victimLocation</th>
+        <th>victimAccidentdetail</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <script>
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:3000/get_data');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log('Fetched data:', data); // Log the data to check if it's correct
+        const tableBody = document.getElementById('data-table').querySelector('tbody');
+        data.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.id}</td>
+            <td>${row.victimName}</td>
+            <td>${row.victimAge}</td>
+            <td>${row.victimContact}</td>
+            <td>${row.victimLocation}</td>
+            <td>${row.victimAccidentdetail}</td>
+          `;
+          console.log('Appending row:', tr.innerHTML); // Log the row being appended
+          tableBody.appendChild(tr);
+        });
+      } catch (error) {
+        console.error('Fetch error:', error);
+      }
+    }
+    fetchData();
+  </script>
+</body>
+</html>
