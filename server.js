@@ -84,6 +84,19 @@ app.post("/add_case", async (req, res) => {
   }
 });
 
+app.get("/get_cases", async (req, res) => {
+  try {
+    await createTable();
+    const result = await sql`
+      SELECT * FROM copilot ORDER BY created_at DESC
+    `;
+    res.status(200).json(result || []);
+  } catch (error) {
+    console.error("Database error:", error);
+    res.status(500).json({ error: "Failed to fetch hospital cases" });
+  }
+});
+
 app.get("/get_hospital_cases", async (req, res) => {
   try {
     await createTable();
